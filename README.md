@@ -1,2 +1,3 @@
 # social-media
-minimal social media full stack app
+
+Minimal social media building with MERN stack

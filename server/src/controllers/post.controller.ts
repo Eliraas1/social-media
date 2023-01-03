@@ -45,6 +45,7 @@ export const likePost = async (req: Request, res: Response) => {
         .status(404)
         .json({ success: false, message: "unauthorized user" });
 
+    //TODO: SPLIT CODE TO SERVICES
     const post = await Post.findById(id);
 
     const isLiked = post?.likes?.includes(user._id);
