@@ -7,9 +7,11 @@ import { useAppSelector } from "./store/store";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
+import Navbar from "./components/Navbar";
 
 function App() {
   const darkMode = useAppSelector((state) => state.app.darkMode);
+  const user = useAppSelector((state) => state.user.token);
   const theme = useMemo(
     () => createTheme(themeSettings(darkMode) as any),
     [darkMode]
@@ -20,10 +22,27 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Home />
+                </>
+              }
+            />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile/:userId" element={<Profile />} />
+            <Route
+              path="/profile/:userId"
+              element={
+                <>
+                  <Navbar />
+                  <Profile />
+                </>
+              }
+            />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
