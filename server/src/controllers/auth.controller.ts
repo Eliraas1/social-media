@@ -39,8 +39,11 @@ export const login = async (req: Request, res: Response) => {
       process.env.ACCESS_TOKEN_SECRET as string
     );
     const { password: pass, ...rest } = user._doc;
-    res.status(200).json({ token, user: rest });
+    res
+      .cookie("accessToken", token)
+      .status(200)
+      .json({ success: true, token, user: rest });
   } catch (err: any) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ success: false, error: err.message });
   }
 };

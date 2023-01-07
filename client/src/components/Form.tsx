@@ -15,6 +15,7 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "./FlexBetween";
 import { setUser } from "../store/features/userSlice";
 import { useAppDispatch } from "../store/store";
+import { BASE_URL, urlBuilder } from "../constants";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -62,24 +63,20 @@ const Form: React.FC = () => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
-
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const savedUserResponse = await fetch(urlBuilder("auth/register"), {
+      method: "POST",
+      body: formData,
+    });
     const res = await savedUserResponse.json();
-    onSubmitProps.resetForm();
 
     if (res.success) {
+      onSubmitProps.resetForm();
       setPageType("login");
     }
   };
 
   const login = async (values: any, onSubmitProps: any) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch(urlBuilder("auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -89,10 +86,10 @@ const Form: React.FC = () => {
     if (res.success) {
       dispatch(
         setUser({
-          ...res.data,
+          ...res.user,
         })
       );
-      navigate("/home");
+      navigate("/");
     }
   };
 

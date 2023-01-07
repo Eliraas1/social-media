@@ -15,11 +15,15 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { PostSlice } from "./features/postSlice";
 
-const persistConfig = { key: "root", storage, version: 1 };
+const userPersistConfig = { key: "user", storage, version: 1 };
+const appPersistConfig = { key: "app", storage, version: 1 };
+const postPersistConfig = { key: "post", storage, version: 1 };
 const rootReducer = combineReducers({
-  user: persistReducer(persistConfig, UserSlice.reducer),
-  app: persistReducer(persistConfig, AppSlice.reducer),
+  user: persistReducer(userPersistConfig, UserSlice.reducer),
+  app: persistReducer(appPersistConfig, AppSlice.reducer),
+  // posts: persistReducer(postPersistConfig, PostsSlice.reducer),
 });
 export const store = configureStore({
   reducer: rootReducer,

@@ -36,7 +36,7 @@ export const authenticateAccessToken = async (
         });
       }
 
-      const user = await getUserById(decoded as string);
+      const user = await getUserById(decoded.id as string);
 
       if (!user) {
         return res.status(401).json({

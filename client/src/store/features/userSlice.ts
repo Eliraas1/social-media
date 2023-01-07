@@ -38,8 +38,12 @@ export const UserSlice = createSlice({
       state.token = action.payload;
       return state;
     },
+    setFriends: (state: IUser, action: PayloadAction<IUser[]>) => {
+      state.friends = action.payload;
+    },
   },
 });
 
 export default UserSlice.reducer;
-export const { setUser, resetUser, setUserToken } = UserSlice.actions;
+export const { setUser, resetUser, setUserToken, setFriends } =
+  UserSlice.actions;

@@ -4,7 +4,7 @@ import Post from "../models/Post.model";
 /* CREATE */
 export const createPost = async (req: Request, res: Response) => {
   try {
-    const user = req.user;
+    const user = (req as any).user;
     if (!user)
       return res.status(401).send({ success: false, message: "unauthorized" });
     const newPost = await Post.create({ ...req.body, owner: user._id });
